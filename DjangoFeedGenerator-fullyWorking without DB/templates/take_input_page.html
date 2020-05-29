@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/takeinput.css' %}" rel="stylesheet" type="text/css">
+    <title>ClearFeedInput</title>
+</head>
+
+<body>
+    <div class="fileUpload">
+        <h1>Input file upload</h1>
+        <form enctype="multipart/form-data" action="submit1/" method="Post"> {% csrf_token %}
+            <p class="fileUploadDisplay">
+                <label><b>Select a file to upload : </b></label>
+                <input type="file" name="myFileUpload" accept="text/plain" required>
+            </p>
+            <p class="submit1"><input type="submit" value="Submit" id="submit1"></p>
+        </form>
+    </div>
+
+    <h1> OR </h1>
+
+    <div class="manualInput">
+        <h1>Input Manually</h1>
+        <form name="submit2html" enctype="multipart/form-data" action="submit2/" method="Post"> {% csrf_token %}
+            <p class="manualInputDisplay">
+                <label for="transRef">Transaction Ref# :
+                    <input type="text" name="transRef" pattern="[A-Za-z0-9]{12}" required>
+                </label>
+
+                <label for="valueDate">Value Date :
+                    <input type="text" name="valueDate" pattern="[0-9]{8}" placeholder="Format - DDMMYYYY" required>
+                </label>
+
+                <label for="payerName">Payer Name :
+                    <input type="text" name="payerName" required>
+                </label>
+
+                <label for="payerAccNo">Payer Account# :
+                    <input type="text" name="payerAccNo" pattern="[A-Za-z0-9]{12}" required>
+                </label>
+
+                <label for="payeeName">Payee Name :
+                    <input type="text" name="payeeName" required>
+                </label>
+
+                <label for="payeeAccNo">Payee Account# :
+                    <input type="text" name="payeeAccNo" pattern="[A-Za-z0-9]{12}" required>
+                </label>
+
+                <label for="amount">Amount :
+                    <input type="text" name="amount"  pattern="[0-9.]{12}" placeholder="Upto 2 decimal places" required>
+                </label>
+            </p>
+            <p class="submit2"><input type="submit" value="Submit" id="submit2"></p>
+        </form>
+    </div>
+
+</body>
+</html>

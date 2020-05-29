@@ -1,0 +1,195 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>DisplayOutput</title>
+    <link href="{% static 'css/DisplayOutput.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'all.csv' %}" rel="static" type="csv">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="header" align="center">
+    <centre>
+    <h1>Results Page</h1>
+    </centre>
+    </div>
+        <div class="container">    
+            <div class="options">
+                <div>
+                    <button class="button" type="submit" name="All_Trans" id="All_Trans">All Transactions</button>
+                </div>
+            </div>
+            <div class="options">
+                <div>
+                    <button class="button" type="submit" name="Passed_Trans" id="Passed_Trans" >Passed Transactions</button>
+                </div>
+            </div>
+            <div class="options">
+                <div>
+                    <button class="button" type="button" name="Failed_Trans" id="Failed_Trans">Failed Transactions</button>
+                </div>
+            </div>
+        </div>
+        <div id="Trans_table">
+
+        </div>
+
+        <div>
+            <br>
+            <button class="button" type="button" name="Download_csv" id="Download_csv" button onclick="downloadCSV('download_feed_transaction.csv')">DOWNLOAD AS CSV</button>
+        </div>
+
+</body>
+</html>
+<script type="text/javascript">
+let csv = ''
+    // Display all transactions
+    $.get("{% static 'all.csv' %}", function(data) {
+        $('#All_Trans').click(function(){
+      $.ajax({
+       url:"{% static 'all.csv' %}",
+       dataType:"text",
+       success:function(data)
+       {
+        let count;
+        let cell_count;
+        let trans_data = data.split(/\r?\n|\r/);
+        let table_data = '<table class="table table-bordered table-striped table-responsive">';
+
+        //display heading
+        let cell_data = trans_data[0].split(",");
+        table_data += '<tr>';
+        for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+            table_data += '<th>' + cell_data[cell_count] + '</th>';
+        }
+        //display table
+        for(count = 1; count<trans_data.length; count++) {
+            cell_data = trans_data[count].split(",");
+            table_data += '<tr>';
+            for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+                if (cell_data[7] === "Pass") {
+                    table_data += '<td style="color:rgba(0,168,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                } else if (cell_data[7] === "Fail") {
+                    table_data += '<td style="color:rgba(250,0,0,1.0)">' + cell_data[cell_count] + '</td>';
+                }
+            }
+            table_data += '</tr>';
+        }
+        table_data += '</table>';
+
+        csv = data
+
+        $('#Trans_table').html(table_data);
+       }
+      });
+     });
+    });
+
+    // Display passed transactions
+    $.get("{% static 'all.csv' %}", function(data) {
+        $('#Passed_Trans').click(function(){
+      $.ajax({
+       url:"{% static 'all.csv' %}",
+       dataType:"text",
+       success:function(data)
+       {
+        let count;
+        let cell_count;
+        let trans_data = data.split(/\r?\n|\r/);
+        let table_data = '<table class="table table-bordered table-striped table-responsive">';
+
+        //display heading
+        csv = trans_data[0]+'\n';
+        let cell_data = trans_data[0].split(",");
+        table_data += '<tr>';
+        for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+            table_data += '<th>' + cell_data[cell_count] + '</th>';
+        }
+        //display table
+        for(count = 1; count<trans_data.length; count++) {
+            cell_data = trans_data[count].split(",");
+            table_data += '<tr>';
+            for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+                if (cell_data[7] === "Pass") {
+                    table_data += '<td style="color:rgba(0,168,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                }
+            }
+            if (cell_data[7] === "Pass") {
+                csv = csv + trans_data[count] + '\n'
+            }
+            table_data += '</tr>';
+        }
+        table_data += '</table>';
+
+        $('#Trans_table').html(table_data);
+       }
+      });
+     });
+    });
+
+    // Display failed transactions
+    $.get("{% static 'all.csv' %}", function(data) {
+        $('#Failed_Trans').click(function(){
+      $.ajax({
+       url:"{% static 'all.csv' %}",
+       dataType:"text",
+       success:function(data)
+       {
+        let count;
+        let cell_count;
+        let trans_data = data.split(/\r?\n|\r/);
+        let table_data = '<table class="table table-bordered table-striped table-responsive">';
+
+        //display heading
+        csv = trans_data[0]+'\n';
+        let cell_data = trans_data[0].split(",");
+        table_data += '<tr>';
+        for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+            table_data += '<th>' + cell_data[cell_count] + '</th>';
+        }
+        //display table
+        for(count = 1; count<trans_data.length; count++) {
+            cell_data = trans_data[count].split(",");
+            table_data += '<tr>';
+            for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
+                if (cell_data[7] === "Fail") {
+                    table_data += '<td style="color:rgba(250,0,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                }
+            }
+            if (cell_data[7] === "Fail") {
+                csv = csv + trans_data[count] + '\n'
+            }
+            table_data += '</tr>';
+        }
+        table_data += '</table>';
+
+        $('#Trans_table').html(table_data);
+       }
+      });
+     });
+    });
+
+    function downloadCSV(filename) {
+        var csvFile;
+        var downloadLink;
+        // CSV file
+        csvFile = new Blob([csv], {type: "text/csv"});
+        // Download link
+        downloadLink = document.createElement("a");
+        // File name
+        downloadLink.download = filename;
+        // Create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+        // Hide download link
+        downloadLink.style.display = "none";
+        // Add the link to DOM
+        document.body.appendChild(downloadLink);
+        // Click download link
+        downloadLink.click();
+    }
+
+
+    </script>
