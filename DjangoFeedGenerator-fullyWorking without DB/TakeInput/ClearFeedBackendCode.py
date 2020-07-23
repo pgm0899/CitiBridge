@@ -7,6 +7,7 @@ This is a temporary script file.
 
 import datetime
 import pandas as pd
+import shutil
 
 
 class ClearFeed:
@@ -35,6 +36,11 @@ class ClearFeed:
                 print(df)
                 print('dataframe')
                 df.to_csv(r'static/all.csv', index=False, header=True)
+
+                # copy all.csv to archive folder
+                filename = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+                shutil.copy('static/all.csv', 'static/archiveData/file{0}.csv'.format(filename))
+
                 '''outfile = open('static/all.csv', 'w')'''
                 break
 
