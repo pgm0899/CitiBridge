@@ -27,31 +27,31 @@
         <form name="submit2html" enctype="multipart/form-data" action="submit2/" method="Post"> {% csrf_token %}
             <p class="manualInputDisplay">
                 <label for="transRef">Transaction Ref# :
-                    <input type="text" name="transRef" pattern="[A-Za-z0-9]{12}" required>
+                    <input type="text" name="transRef" pattern="[A-Za-z0-9]{12}" oninvalid="setCustomValidity('Transaction Ref# should be a 12 digit alphanumeric number')" onchange="try{setCustomValidity('')}catch(e){}" required>
                 </label>
 
                 <label for="valueDate">Value Date :
-                    <input type="text" name="valueDate" pattern="[0-9]{8}" placeholder="Format - DDMMYYYY" required>
+                    <input type="text" name="valueDate" pattern="[0-9]{8}" oninvalid="setCustomValidity('Value Date should be of the format DDMMYYYY')" onchange="try{setCustomValidity('')}catch(e){}" placeholder="Format - DDMMYYYY" required>
                 </label>
 
                 <label for="payerName">Payer Name :
-                    <input type="text" name="payerName" required>
+                    <input type="text" name="payerName" pattern="^[a-zA-Z]+$" oninvalid="setCustomValidity('Payer Name should contain only alphabets')" onchange="try{setCustomValidity('')}catch(e){}" required>
                 </label>
 
                 <label for="payerAccNo">Payer Account# :
-                    <input type="text" name="payerAccNo" pattern="[A-Za-z0-9]{12}" required>
+                    <input type="text" name="payerAccNo" pattern="[A-Za-z0-9]{12}" oninvalid="setCustomValidity('Payer Account# should be a 12 digit alphanumeric number')" onchange="try{setCustomValidity('')}catch(e){}" required>
                 </label>
 
                 <label for="payeeName">Payee Name :
-                    <input type="text" name="payeeName" required>
+                    <input type="text" name="payeeName" pattern="^[a-zA-Z]+$" oninvalid="setCustomValidity('Payer Name should contain only alphabets')" onchange="try{setCustomValidity('')}catch(e){}" required>
                 </label>
 
                 <label for="payeeAccNo">Payee Account# :
-                    <input type="text" name="payeeAccNo" pattern="[A-Za-z0-9]{12}" required>
+                    <input type="text" name="payeeAccNo" pattern="[A-Za-z0-9]{12}" oninvalid="setCustomValidity('Payee Account# should be a 12 digit alphanumeric number')" onchange="try{setCustomValidity('')}catch(e){}" required>
                 </label>
 
                 <label for="amount">Amount :
-                    <input type="text" name="amount"  pattern="[0-9.]{12}" placeholder="Upto 2 decimal places" required>
+                    <input type="text" name="amount" pattern="(^(0|([1-9][0-9]*))(\.[0-9]{1,2})?$)|(^(0{0,1}|([1-9][0-9]*))(\.[0-9]{1,2})?$)" oninvalid="setCustomValidity('Amount should a positive number upto maximum 2 decimal places')" onchange="try{setCustomValidity('')}catch(e){}" placeholder="Upto 2 decimal places" required>
                 </label>
             </p>
             <p class="submit2"><input type="submit" value="Submit" id="submit2"></p>
