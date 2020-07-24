@@ -8,6 +8,17 @@ This is a temporary script file.
 import datetime
 import pandas as pd
 import shutil
+from sqlalchemy import create_engine
+
+
+database_username = 'root'
+database_password = 'Niki@0511'
+database_name = 'citi'
+# create sqlalchemy engine
+engine = create_engine("mysql+pymysql://{user}:{pw}@localhost/{db}"
+                       .format(user=database_username,
+                               pw=database_password,
+                               db=database_name))
 
 
 class ClearFeed:
@@ -33,10 +44,8 @@ class ClearFeed:
             if not line:
                 # write df to file
                 df = pd.DataFrame(data)
-                print(df)
-                print('dataframe')
                 df.to_csv(r'static/all.csv', index=False, header=True)
-
+                df.to_sql("Transactions",con=engine, if_exists='append', chunksize=1000)
                 # copy all.csv to archive folder
                 filename = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
                 shutil.copy('static/all.csv', 'static/archiveData/file{0}.csv'.format(filename))
