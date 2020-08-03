@@ -4,11 +4,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="{% static 'css/takeinput.css' %}" rel="stylesheet" type="text/css">
     <title>ClearFeedInput</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static 'css/takeinput.css' %}" rel="stylesheet" type="text/css">
+    
 </head>
 
 <body>
+    <div class="header" align="center">
+        <div class="row" >
+            <div class="container">
+                <nav class="navbar transperant navbar-fixed-top">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynav">
+                            <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div >
+                        <ul class="nav navbar-nav navbar-right" id="mynav">
+                            <li><a style="color: white;" href="/"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                        </ul>
+                    </div>
+                </nav>
+        </div>
     <div class="fileUpload">
         <h1>Input file upload</h1>
         <form enctype="multipart/form-data" action="submit1/" method="Post"> {% csrf_token %}
@@ -20,7 +42,7 @@
         </form>
     </div>
 
-    <h1> OR </h1>
+    <h1  style="color: white;"> OR </h1>
 
     <div class="manualInput">
         <h1>Input Manually</h1>

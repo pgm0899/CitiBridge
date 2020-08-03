@@ -1,10 +1,10 @@
 TID,DATE,PAYERNAME,PAYERACC,PAYEENAME,PAYEEACC,AMOUNT,STATUS,REASON
-1234567890--,02012020,VickeyMickey,200001020111,KamleshPatel,200001020099,9999.90,Fail,transRef should be alpha-numeric string
-123452359012,02882020,AnilMehtanin,200001020112,KanyaKaur,200001020919,9993.00,Fail,Incorrect date format(should be DDMMYYYY)
-123456789019,25082020,Narayan*Iyer,200001020113,AshwiniKumari,200001020992,999.00,Fail,payerName should be alpha-numeric string
-123456789001,12052020,KamalNathan,200001(20141,SunainaPatil,200001020939,1256.00,Fail,payerAccNo should be alpha-numeric string
-123456789012,02062020,VijSavrani,200001020115,TestUs)er1,200001020994,500.00,Fail,payeeName should be alpha-numeric string
-156456789012,02012020,VimalSukumar,200001060111,MohiniChawal,20000+520999,329.00,Fail,payeeAccNo should be alpha-numeric string
-123948589012,02012020,AnandiGupta,200001027111,KaranKumar,200001620999,-10000.00,Fail,Transaction Amount is negative or 0
-123456225542,02012020,KiranTaneja,200001020181,KailashGupta,200001027999,999999999999529.00,Fail,Transaction Amount should be less than 10 000 000 000.00
-123456789013,12012020,NanyaNewton,200001029111,KavyaNath,200001080999,99.00,Pass,NA
+223456789000,02012020,AryanKumar,300001020111,AnandiPatel,200001020099,9999.90,Pass,All fields are valid
+223452359012,02882020,NavinMehtan,300001020112,KanyaKaur,200001020919,9993.00,Fail,Incorrect date format(should be DDMMYYYY)
+223456789019,25082020,AshwiniIyer,300001020113,KamalaKumari,200001020992,999.00,Pass,All fields are valid
+223456789001,12052020,KamalNathan,300001(20141,SunainaPatil,200001020939,1256.00,Fail,payerAccNo should be alpha-numeric string
+223456789012,02062020,SharvariSavrani,300001020115,Karan(Patel,200001020994,500.00,Fail,payeeName should be alphabetical string
+256456789012,02012020,Vimal-Sukumar,300001060111,KavyaNathan,20000+520999,329.00,Fail,payerName should be alphabetical string
+223948589012,02012020,KamleshGupta,300001027111,KailashKumar,200001620999,-10000.00,Fail,Transaction Amount should be numeric
+223456225542,02012020,KaranTaneja,300001020181,KiranGupta,200001027999,999999999999529.00,Fail,Transaction Amount should be less than 10 000 000 000.00
+223456789013,12012020,VijTaneja,300001029111,MohiniSingh,200001080999,99.00,Pass,All fields are valid

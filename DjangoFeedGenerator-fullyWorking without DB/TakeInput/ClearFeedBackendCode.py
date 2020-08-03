@@ -43,10 +43,12 @@ class ClearFeed:
             if not line:
                 # write df to file
                 df = pd.DataFrame(data)
-                print(df)
-                print('dataframe')
-                df.to_csv(r'static/all.csv', index=False, header=True)
+                #df.to_csv(r'static/all.csv',mode='a', index=False, header=True)
                 '''outfile = open('static/all.csv', 'w')'''
+                df.to_sql("transactions",con=engine, if_exists='append', chunksize=1000)
+                
+               # df=pd.DataFrame(SQL_Query, columns=['TID','DATE','PAYERNAME','PAYERACC','PAYEENAME','PAYEEACC','AMOUNT','STATUS','REASON'])
+                df.to_csv(r'static/all.csv', index=False, header=True)
                 break
 
             record = line.split()

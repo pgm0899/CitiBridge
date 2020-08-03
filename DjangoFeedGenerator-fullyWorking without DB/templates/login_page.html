@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <input type="hidden" id="refresh" value="no">
   <div class="login">
   <h1>Login Page</h1>
   <form name="loginForm" action="takeinput/" method="Post"> {% csrf_token %}
@@ -23,7 +24,7 @@
 function check(form)
 {
 
-if(form.login.value == "citi" && form.password.value == "citi123")
+if(form.login.value == "user" && form.password.value == "user123")
 {
 	return true;
 }

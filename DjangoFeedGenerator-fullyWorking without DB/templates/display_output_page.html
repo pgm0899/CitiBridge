@@ -6,27 +6,50 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>DisplayOutput</title>
-    <link href="{% static 'css/DisplayOutput.css' %}" rel="stylesheet" type="text/css">    <link href="{% static 'all.csv' %}" rel="static" type="csv">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static 'css/DisplayOutput.css' %}" rel="stylesheet" type="text/css">    <link href="{% static 'all.csv' %}" rel="static" type="csv">
 </head>
 <body>
     <div class="header" align="center">
+        <div class="row" >
+            <div class="container">
+                <nav class="navbar transperant navbar-fixed-top">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynav">
+                            <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div >
+                        <ul class="nav navbar-nav navbar-right" id="mynav">
+                            <li><a href="/takeinput"><span class="glyphicon glyphicon-file"></span>Input</a></li>
+                            <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                        </ul>
+                    </div>
+                </nav>
+        </div>
+    <div class="header" align="center">
     <centre>
-    <h1>Results Page</h1>
+    <h1 style="color: white;">Generated Feed</h1>
     </centre>
-
-
-    <div class="example">
-        <input type="text" placeholder="Search.." name="search" id="searchID">
-        <button class="button" type="submit" name="Search" id="Search"><i class="fa fa-search"></i></button>
+    <br><br>
+    <div class="input-group" >
+        <input type="text" class="form-control" placeholder="Search.." name="search" id="searchID">
+        <div class="input-group-btn">
+          <button class="btn btn-default" class="button" type="submit" name="Search" id="Search">
+              <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
     </div>
-
-    </div>
+    <br>
         <div class="container">
             <div class="options">
-                <button class="button" type="submit" name="All_Trans" id="All_Trans">All Transactions</button>
+                <button class="button" type="submit"  name="All_Trans" id="All_Trans">All Transactions</button>
             </div>
             <div class="options">
                     <button class="button" type="submit" name="Passed_Trans" id="Passed_Trans" >Passed Transactions</button>
@@ -62,6 +85,7 @@ let csv = ''
        success:function(data)
        {
         let count;
+        let total=0;
         let cell_count;
         let trans_data = data.split(/\r?\n|\r/);
         let table_data = '<table class="table table-bordered table-striped table-responsive">';
@@ -70,23 +94,24 @@ let csv = ''
         let cell_data = trans_data[0].split(",");
         table_data += '<tr>';
         for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
-            table_data += '<th>' + cell_data[cell_count] + '</th>';
+            table_data += '<th style="border:1px black solid;">' + cell_data[cell_count] + '</th>';
         }
         //display table
         for(count = 1; count<trans_data.length; count++) {
+            total+=1;
             cell_data = trans_data[count].split(",");
             table_data += '<tr>';
             for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
                 if (cell_data[7] === "Pass") {
-                    table_data += '<td style="color:rgba(0,168,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                    table_data += '<td style="color:rgba(0,168,0,1.0); border:1px black solid;" >' + cell_data[cell_count] + '</td>';
                 } else if (cell_data[7] === "Fail") {
-                    table_data += '<td style="color:rgba(250,0,0,1.0)">' + cell_data[cell_count] + '</td>';
+                    table_data += '<td style="color:rgba(250,0,0,1.0); border:1px black solid;">' + cell_data[cell_count] + '</td>';
                 }
             }
             table_data += '</tr>';
         }
         table_data += '</table>';
-
+        table_data += '<h4 style="color: white;">Total:'+(total-1)+'</h4>';
         csv = data
 
         $('#Trans_table').html(table_data);
@@ -104,6 +129,7 @@ let csv = ''
        success:function(data)
        {
         let count;
+        let total=0;
         let cell_count;
         let trans_data = data.split(/\r?\n|\r/);
         let table_data = '<table class="table table-bordered table-striped table-responsive">';
@@ -113,24 +139,26 @@ let csv = ''
         let cell_data = trans_data[0].split(",");
         table_data += '<tr>';
         for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
-            table_data += '<th>' + cell_data[cell_count] + '</th>';
+            table_data += '<th style="border:1px black solid;">' + cell_data[cell_count] + '</th>';
         }
         //display table
         //display table
         for(count = 1; count<trans_data.length; count++) {
+            
             cell_data = trans_data[count].split(",");
 
             if (cell_data[7] === "Pass"){
+                total+=1;
                 table_data += '<tr>';
                 for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
-                    table_data += '<td style="color:rgba(0,168,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                    table_data += '<td style="color:rgba(0,168,0,1.0); border:1px black solid;" >' + cell_data[cell_count] + '</td>';
                 }
                 csv = csv + trans_data[count] + '\n'
                 table_data += '</tr>';
             }
         }
         table_data += '</table>';
-
+        table_data += '<h4 style="color: white;">Total:'+(total)+'</h4>';
         $('#Trans_table').html(table_data);
        }
       });
@@ -146,6 +174,7 @@ let csv = ''
        success:function(data)
        {
         let count;
+        let total=0;
         let cell_count;
         let trans_data = data.split(/\r?\n|\r/);
         let table_data = '<table class="table table-bordered table-striped table-responsive">';
@@ -155,23 +184,24 @@ let csv = ''
         let cell_data = trans_data[0].split(",");
         table_data += '<tr>';
         for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
-            table_data += '<th>' + cell_data[cell_count] + '</th>';
+            table_data += '<th style="border:1px black solid;">' + cell_data[cell_count] + '</th>';
         }
         //display table
         for(count = 1; count<trans_data.length; count++) {
             cell_data = trans_data[count].split(",");
 
             if (cell_data[7] === "Fail"){
+                total+=1;
                 table_data += '<tr>';
                 for (cell_count = 0; cell_count < cell_data.length; cell_count++) {
-                    table_data += '<td style="color:rgba(250,0,0,1.0)" >' + cell_data[cell_count] + '</td>';
+                    table_data += '<td style="color:rgba(250,0,0,1.0);border:1px black solid;" >' + cell_data[cell_count] + '</td>';
                 }
                 csv = csv + trans_data[count] + '\n'
                 table_data += '</tr>';
             }
         }
         table_data += '</table>';
-
+        table_data += '<h4 style="color: white;">Total:'+(total)+'</h4>';
         $('#Trans_table').html(table_data);
        }
       });
